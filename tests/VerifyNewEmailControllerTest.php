@@ -2,6 +2,7 @@
 
 namespace ProtoneMedia\LaravelVerifyNewEmail\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
@@ -19,7 +20,7 @@ class VerifyNewEmailControllerTest extends TestCase
         config(['verify-new-email.login_after_verification' => false]);
     }
 
-    /** @test */
+    #[Test]
     public function it_updates_the_user_email_and_deletes_the_pending_email()
     {
         Event::fake();
@@ -46,7 +47,7 @@ class VerifyNewEmailControllerTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function it_can_login_the_user()
     {
         Mail::fake();
@@ -63,7 +64,7 @@ class VerifyNewEmailControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    /** @test */
+    #[Test]
     public function it_removes_both_pending_models_if_two_users_try_to_verify_the_same_address()
     {
         Mail::fake();
@@ -79,7 +80,7 @@ class VerifyNewEmailControllerTest extends TestCase
         $this->assertEmpty(PendingUserEmail::get());
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_if_the_token_is_invalid()
     {
         try {
