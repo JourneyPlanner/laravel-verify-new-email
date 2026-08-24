@@ -12,7 +12,7 @@ use ProtoneMedia\LaravelVerifyNewEmail\PendingUserEmail;
 
 class VerifyNewEmailControllerTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
