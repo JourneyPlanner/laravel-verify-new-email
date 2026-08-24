@@ -2,6 +2,7 @@
 
 namespace ProtoneMedia\LaravelVerifyNewEmail\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Testing\Fakes\MailFake;
@@ -10,26 +11,22 @@ use ProtoneMedia\LaravelVerifyNewEmail\Mail\VerifyFirstEmail;
 use ProtoneMedia\LaravelVerifyNewEmail\Mail\VerifyNewEmail;
 use ProtoneMedia\LaravelVerifyNewEmail\PendingUserEmail;
 
-class MustVerifyNewEmailTest extends TestCase
+final class MustVerifyNewEmailTest extends TestCase
 {
-    /** @test */
-    public function it_throws_an_exception_when_the_model_class_configuration_is_not_set()
+    #[Test]
+    public function it_throws_an_exception_when_the_model_class_configuration_is_not_set(): void
     {
         $user = $this->user();
 
         config(['verify-new-email.model' => null]);
 
-        try {
-            $user->getEmailVerificationModel();
-        } catch (InvalidEmailVerificationModelException $e) {
-            return $this->assertTrue(true);
-        }
+        $this->expectException(InvalidEmailVerificationModelException::class);
 
-        $this->fail('Should have thrown InvalidEmailVerificationModelException');
+        $user->getEmailVerificationModel();
     }
 
-    /** @test */
-    public function it_doesnt_send_a_verification_mail_if_the_email_didnt_change()
+    #[Test]
+    public function it_doesnt_send_a_verification_mail_if_the_email_didnt_change(): void
     {
         Mail::fake();
 
@@ -43,8 +40,8 @@ class MustVerifyNewEmailTest extends TestCase
         Mail::assertNothingQueued();
     }
 
-    /** @test */
-    public function it_uses_another_mailable_for_updating_an_email_address()
+    #[Test]
+    public function it_uses_another_mailable_for_updating_an_email_address(): void
     {
         Mail::fake();
 
@@ -68,8 +65,8 @@ class MustVerifyNewEmailTest extends TestCase
         });
     }
 
-    /** @test */
-    public function it_can_generate_a_token_and_mail_it_to_the_new_email_address()
+    #[Test]
+    public function it_can_generate_a_token_and_mail_it_to_the_new_email_address(): void
     {
         Mail::fake();
 
@@ -100,8 +97,8 @@ class MustVerifyNewEmailTest extends TestCase
         $this->assertEquals('new@example.com', $user->getPendingEmail());
     }
 
-    /** @test */
-    public function it_can_regenerate_a_token_and_mail_it()
+    #[Test]
+    public function it_can_regenerate_a_token_and_mail_it(): void
     {
         $mailRoot = Mail::getFacadeRoot();
         Mail::swap(new MailFake($mailRoot));
@@ -133,8 +130,8 @@ class MustVerifyNewEmailTest extends TestCase
         });
     }
 
-    /** @test */
-    public function it_can_interact_with_the_mailable()
+    #[Test]
+    public function it_can_interact_with_the_mailable(): void
     {
         Mail::fake();
 
@@ -163,8 +160,8 @@ class MustVerifyNewEmailTest extends TestCase
         });
     }
 
-    /** @test */
-    public function it_deletes_previous_attempts_of_the_user_trying_to_verify_a_new_email()
+    #[Test]
+    public function it_deletes_previous_attempts_of_the_user_trying_to_verify_a_new_email(): void
     {
         Mail::fake();
 

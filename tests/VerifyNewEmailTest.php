@@ -2,14 +2,15 @@
 
 namespace ProtoneMedia\LaravelVerifyNewEmail\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Support\Str;
 use ProtoneMedia\LaravelVerifyNewEmail\Mail\VerifyNewEmail;
 use ProtoneMedia\LaravelVerifyNewEmail\PendingUserEmail;
 
-class VerifyNewEmailTest extends TestCase
+final class VerifyNewEmailTest extends TestCase
 {
-    /** @test */
-    public function it_can_generate_a_signed_url()
+    #[Test]
+    public function it_can_generate_a_signed_url(): void
     {
         $mailable = new VerifyNewEmail(
             new PendingUserEmail(['token' => 'random_token'])

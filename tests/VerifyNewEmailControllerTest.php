@@ -2,6 +2,7 @@
 
 namespace ProtoneMedia\LaravelVerifyNewEmail\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
@@ -10,17 +11,17 @@ use ProtoneMedia\LaravelVerifyNewEmail\Http\InvalidVerificationLinkException;
 use ProtoneMedia\LaravelVerifyNewEmail\Http\VerifyNewEmailController;
 use ProtoneMedia\LaravelVerifyNewEmail\PendingUserEmail;
 
-class VerifyNewEmailControllerTest extends TestCase
+final class VerifyNewEmailControllerTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         config(['verify-new-email.login_after_verification' => false]);
     }
 
-    /** @test */
-    public function it_updates_the_user_email_and_deletes_the_pending_email()
+    #[Test]
+    public function it_updates_the_user_email_and_deletes_the_pending_email(): void
     {
         Event::fake();
         Mail::fake();
@@ -46,8 +47,8 @@ class VerifyNewEmailControllerTest extends TestCase
         });
     }
 
-    /** @test */
-    public function it_can_login_the_user()
+    #[Test]
+    public function it_can_login_the_user(): void
     {
         Mail::fake();
 
@@ -63,8 +64,8 @@ class VerifyNewEmailControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    /** @test */
-    public function it_removes_both_pending_models_if_two_users_try_to_verify_the_same_address()
+    #[Test]
+    public function it_removes_both_pending_models_if_two_users_try_to_verify_the_same_address(): void
     {
         Mail::fake();
 
@@ -79,15 +80,11 @@ class VerifyNewEmailControllerTest extends TestCase
         $this->assertEmpty(PendingUserEmail::get());
     }
 
-    /** @test */
-    public function it_throws_an_exception_if_the_token_is_invalid()
+    #[Test]
+    public function it_throws_an_exception_if_the_token_is_invalid(): void
     {
-        try {
-            app(VerifyNewEmailController::class)->verify('wrong_token');
-        } catch (InvalidVerificationLinkException $exception) {
-            return    $this->assertTrue(true);
-        }
+        $this->expectException(InvalidVerificationLinkException::class);
 
-        $this->fail('Should have thrown InvalidVerificationLinkException');
+        app(VerifyNewEmailController::class)->verify('wrong_token');
     }
 }
