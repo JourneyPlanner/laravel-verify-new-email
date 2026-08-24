@@ -21,7 +21,7 @@ class VerifyNewEmailControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_updates_the_user_email_and_deletes_the_pending_email()
+    public function it_updates_the_user_email_and_deletes_the_pending_email(): void
     {
         Event::fake();
         Mail::fake();
@@ -48,7 +48,7 @@ class VerifyNewEmailControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_can_login_the_user()
+    public function it_can_login_the_user(): void
     {
         Mail::fake();
 
@@ -65,7 +65,7 @@ class VerifyNewEmailControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_removes_both_pending_models_if_two_users_try_to_verify_the_same_address()
+    public function it_removes_both_pending_models_if_two_users_try_to_verify_the_same_address(): void
     {
         Mail::fake();
 
@@ -81,7 +81,7 @@ class VerifyNewEmailControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_throws_an_exception_if_the_token_is_invalid()
+    public function it_throws_an_exception_if_the_token_is_invalid(): void
     {
         try {
             app(VerifyNewEmailController::class)->verify('wrong_token');
