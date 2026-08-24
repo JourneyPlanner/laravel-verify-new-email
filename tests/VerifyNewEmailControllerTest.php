@@ -11,7 +11,7 @@ use ProtoneMedia\LaravelVerifyNewEmail\Http\InvalidVerificationLinkException;
 use ProtoneMedia\LaravelVerifyNewEmail\Http\VerifyNewEmailController;
 use ProtoneMedia\LaravelVerifyNewEmail\PendingUserEmail;
 
-class VerifyNewEmailControllerTest extends TestCase
+final class VerifyNewEmailControllerTest extends TestCase
 {
     protected function setUp(): void
     {

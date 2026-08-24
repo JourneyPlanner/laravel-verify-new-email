@@ -11,7 +11,7 @@ use ProtoneMedia\LaravelVerifyNewEmail\Mail\VerifyFirstEmail;
 use ProtoneMedia\LaravelVerifyNewEmail\Mail\VerifyNewEmail;
 use ProtoneMedia\LaravelVerifyNewEmail\PendingUserEmail;
 
-class MustVerifyNewEmailTest extends TestCase
+final class MustVerifyNewEmailTest extends TestCase
 {
     #[Test]
     public function it_throws_an_exception_when_the_model_class_configuration_is_not_set(): void
