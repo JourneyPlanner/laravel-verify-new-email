@@ -83,12 +83,8 @@ final class VerifyNewEmailControllerTest extends TestCase
     #[Test]
     public function it_throws_an_exception_if_the_token_is_invalid(): void
     {
-        try {
-            app(VerifyNewEmailController::class)->verify('wrong_token');
-        } catch (InvalidVerificationLinkException $exception) {
-            return    $this->assertTrue(true);
-        }
+        $this->expectException(InvalidVerificationLinkException::class);
 
-        $this->fail('Should have thrown InvalidVerificationLinkException');
+        app(VerifyNewEmailController::class)->verify('wrong_token');
     }
 }

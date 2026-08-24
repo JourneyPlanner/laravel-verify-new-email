@@ -5,7 +5,7 @@ namespace ProtoneMedia\LaravelVerifyNewEmail\Tests;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use ProtoneMedia\LaravelVerifyNewEmail\ServiceProvider;
 
-final class TestCase extends OrchestraTestCase
+class TestCase extends OrchestraTestCase
 {
     protected function getPackageProviders($app)
     {

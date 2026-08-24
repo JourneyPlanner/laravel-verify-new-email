@@ -20,13 +20,9 @@ final class MustVerifyNewEmailTest extends TestCase
 
         config(['verify-new-email.model' => null]);
 
-        try {
-            $user->getEmailVerificationModel();
-        } catch (InvalidEmailVerificationModelException $e) {
-            return $this->assertTrue(true);
-        }
+        $this->expectException(InvalidEmailVerificationModelException::class);
 
-        $this->fail('Should have thrown InvalidEmailVerificationModelException');
+        $user->getEmailVerificationModel();
     }
 
     #[Test]
